@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="bg-white shadow-sm pb-4 mb-5 border-bottom">
+    <div class="bg-secondary" style="height: 250px;">
+        {% if store.cover_image %}
+            <img src="{{ store.cover_image.url }}" class="w-100 h-100" style="object-fit: cover;">
+        {% endif %}
+    </div>
+    <div class="container mt-n5 position-relative">
+        <div class="bg-white p-4 rounded-3 shadow d-inline-block w-100" style="margin-top: -50px;">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="fw-bold mb-1">{{ store.name }}</h2>
+                    <p class="text-muted mb-0">📍 {{ store.address }}, {{ store.city }} • {{ store.get_category_display }}</p>
+                </div>
+                <div class="text-end">
+                    <div class="fs-4 text-warning fw-bold">★ {{ store.avg_rating }}</div>
+                    <span class="badge bg-success">Accepting Reservations</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <h3 class="fw-bold mb-4">Available Surprise Bags</h3>
+    <div class="row g-4">
+        {% for bag in bags %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card border-success shadow-sm h-100">
+                <div class="card-header bg-success text-white fw-bold">
+                    ⏰ Pickup: {{ bag.pickup_start|time:"g:i A" }} - {{ bag.pickup_end|time:"g:i A" }}
+                </div>
+                <div class="card-body text-center py-4">
+                    <h4 class="fw-bold">{{ bag.title }}</h4>
+                    <p class="text-muted small">{{ bag.description }}</p>
+                    
+                    <div class="my-3">
+                        <span class="text-muted text-decoration-line-through">Rs. {{ bag.original_price }}</span>
+                        <span class="fs-3 fw-bold text-success ms-2">Rs. {{ bag.discounted_price }}</span>
+                    </div>
+
+                    {% if bag.quantity_left > 0 %}
+                        <p class="text-danger fw-bold small">🔥 Only {{ bag.quantity_left }} left!</p>
+                        <a href="{% url 'reservations:reserve' bag.id %}" class="btn btn-flashbite w-100 fw-bold">Reserve Now</a>
+                    {% else %}
+                        <p class="text-muted fw-bold small">Sold out for today.</p>
+                        <button class="btn btn-secondary w-100 fw-bold" disabled>Check back tomorrow</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center text-muted py-5">
+            <p>No bags available at the moment. Check back later!</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

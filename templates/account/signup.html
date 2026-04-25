@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow border-0 rounded-4 p-4">
+                <h2 class="fw-bold text-center text-flashbite mb-4">Join FlashBite</h2>
+                <p class="text-center text-muted mb-4">Start saving delicious food at massive discounts today.</p>
+
+                <form class="signup" id="signup_form" method="POST" action="{% url 'account_signup' %}">
+                    {% csrf_token %}
+                    
+                    {% if form.errors %}
+                        <div class="alert alert-danger small">
+                            Please correct the errors below and try again.
+                        </div>
+                    {% endif %}
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Email Address</label>
+                        <input type="email" name="email" class="form-control form-control-lg bg-light" placeholder="you@example.com" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Choose a Password</label>
+                        <div class="input-group">
+                            <input type="password" id="pass1" name="password1" class="form-control form-control-lg bg-light border-end-0" placeholder="••••••••" required>
+                            <button class="btn btn-outline-secondary bg-light border-start-0" type="button" onclick="togglePass('pass1', this)">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Confirm Password</label>
+                        <div class="input-group">
+                            <input type="password" id="pass2" name="password2" class="form-control form-control-lg bg-light border-end-0" placeholder="••••••••" required>
+                            <button class="btn btn-outline-secondary bg-light border-start-0" type="button" onclick="togglePass('pass2', this)">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <script>
+                        function togglePass(inputId, btn) {
+                            const input = document.getElementById(inputId);
+                            const icon = btn.querySelector('i');
+                            if (input.type === "password") {
+                                input.type = "text";
+                                icon.classList.replace('bi-eye', 'bi-eye-slash');
+                            } else {
+                                input.type = "password";
+                                icon.classList.replace('bi-eye-slash', 'bi-eye');
+                            }
+                        }
+                    </script>
+                    
+                    <button class="btn btn-warning text-dark btn-lg w-100 fw-bold mb-3" type="submit">Create Account</button>
+                    
+                    <div class="text-center mt-3">
+                        <p class="text-muted mb-0">Already have an account? <a href="{% url 'account_login' %}" class="text-flashbite fw-bold text-decoration-none">Log in</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

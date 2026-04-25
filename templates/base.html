@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlashBite - Save Food, Save Money</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        /* Custom tweaks for a premium feel */
+        .bg-flashbite { background-color: #05795B; }
+        .text-flashbite { color: #05795B; }
+        .btn-flashbite { background-color: #05795B; color: white; transition: 0.3s; }
+        .btn-flashbite:hover { background-color: #034B38; color: white; }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-flashbite shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/">🌿 FlashBite</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link text-white fw-bold" href="{% url 'stores:store_list' %}">Browse Stores</a></li>
+                    <li class="nav-item"><a class="nav-link text-warning fw-bold" href="{% url 'core:partner' %}">Partner with Us</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="{% url 'stores:owner_dashboard' %}">Vendor Dashboard</a></li> {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link text-warning fw-bold" href="{% url 'core:dashboard' %}">Dashboard</a></li>
+                        <li class="nav-item"><a class="btn btn-outline-light ms-lg-3" href="{% url 'account_logout' %}">Log Out</a></li>
+                    {% else %}
+                        <li class="nav-item ms-lg-2 mt-3 mt-lg-0 d-grid">
+                            <a class="btn btn-outline-light fw-bold" href="{% url 'account_login' %}">Log In</a>
+                        </li>
+                        <li class="nav-item ms-lg-2 mt-2 mt-lg-0 d-grid">
+                            <a class="btn btn-warning fw-bold text-dark" href="{% url 'account_signup' %}">Sign Up</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow-1">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-dark text-light py-5 mt-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h5 class="fw-bold text-success">🌿 FlashBite</h5>
+                    <p class="text-white-50 small">Fighting food waste in Pakistan by connecting you with surplus, high-quality food from local businesses at a fraction of the price.</p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h6 class="fw-bold text-white">Quick Links</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="/#how-it-works" class="text-white-50 text-decoration-none hover-white">How it Works</a></li>
+                        
+                        <li class="mb-2"><a href="mailto:roshaanch007@gmail.com?subject=Partnership Inquiry" class="text-white-50 text-decoration-none hover-white">Partner with Us</a></li>
+                        <li class="mb-2"><a href="mailto:roshaanch007@gmail.com?subject=Careers at FlashBite" class="text-white-50 text-decoration-none hover-white">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h6 class="fw-bold text-white">Contact the Founder</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2">
+                            <i class="bi bi-whatsapp text-success me-2"></i> 
+                            <a href="https://wa.me/923458594275" target="_blank" class="text-white-50 text-decoration-none hover-white">+92345 8594275</a>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-envelope-fill text-warning me-2"></i> 
+                            <a href="mailto:roshaanch007@gmail.com" class="text-white-50 text-decoration-none hover-white">roshaanch007@gmail.com</a>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-facebook text-primary me-2"></i> 
+                            <a href="https://www.facebook.com/roshaanch275" target="_blank" class="text-white-50 text-decoration-none hover-white">Connect on Facebook</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="border-secondary">
+            <div class="text-center small text-muted">
+                &copy; 2026 FlashBite Technologies. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

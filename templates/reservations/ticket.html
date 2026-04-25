@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            
+            <div class="card shadow-lg border-0 rounded-4 overflow-hidden mb-4">
+                <div class="bg-flashbite text-white py-3">
+                    <h4 class="mb-0 fw-bold">Reservation Confirmed!</h4>
+                </div>
+                
+                <div class="card-body p-5">
+                    <h2 class="fw-bold mb-1">{{ reservation.store.name }}</h2>
+                    <p class="text-muted mb-4">{{ reservation.bag.title }}</p>
+                    
+                    {% if reservation.qr_code %}
+                        <img src="{{ reservation.qr_code.url }}" alt="QR Code" class="img-fluid border rounded-3 p-2 mb-3" style="max-width: 250px;">
+                    {% endif %}
+                    
+                    <h3 class="fw-bold tracking-widest">{{ reservation.reservation_code }}</h3>
+                    <p class="text-muted small">Show this code to the store on arrival.</p>
+                    
+                    <hr class="my-4">
+                    
+                    <div class="d-flex justify-content-between text-start mb-2">
+                        <span class="text-muted">Pickup Time:</span>
+                        <span class="fw-bold">{{ reservation.bag.pickup_start|time:"g:i A" }} - {{ reservation.bag.pickup_end|time:"g:i A" }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between text-start mb-2">
+                        <span class="text-muted">Total to pay at store:</span>
+                        <span class="fw-bold text-success fs-5">Rs. {{ reservation.total_price }}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="/" class="btn btn-outline-secondary w-100 fw-bold">Back to Homepage</a>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
