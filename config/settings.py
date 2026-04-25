@@ -137,6 +137,9 @@ ACCOUNT_USERNAME_REQUIRED = False
 # Automatically log the user in after they click the verification link
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 
+ACCOUNT_SESSION_REMEMBER = True
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
+
 # The Gmail Sending Engine
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
