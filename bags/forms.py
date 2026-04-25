@@ -4,8 +4,9 @@ from .models import SurpriseBag
 class SurpriseBagForm(forms.ModelForm):
     class Meta:
         model = SurpriseBag
-        fields = ['title', 'description', 'original_price', 'discounted_price', 'pickup_start', 'pickup_end', 'quantity_left', 'image']
-        
+        # --- FIXED: Added quantity_total to your exact fields list ---
+        fields = ['title', 'description', 'original_price', 'discounted_price', 'pickup_start', 'pickup_end', 'quantity_total', 'quantity_left', 'image']
+
         # This makes the form look beautiful using Bootstrap classes
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'e.g. 2 Large Pizzas'}),
@@ -14,7 +15,9 @@ class SurpriseBagForm(forms.ModelForm):
             'discounted_price': forms.NumberInput(attrs={'class': 'form-control'}),
             'pickup_start': forms.TimeInput(attrs={'class': 'form-control', 'type': 'time'}),
             'pickup_end': forms.TimeInput(attrs={'class': 'form-control', 'type': 'time'}),
-            'quantity_left': forms.NumberInput(attrs={'class': 'form-control'}),
+            # --- FIXED: Added a beautiful widget for quantity_total ---
+            'quantity_total': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Total bags to sell'}),
+            'quantity_left': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Bags currently left'}),
             'image': forms.FileInput(attrs={'class': 'form-control'}),
         }
 

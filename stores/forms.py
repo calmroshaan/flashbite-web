@@ -4,7 +4,7 @@ from .models import Store
 class StoreApplicationForm(forms.ModelForm):
     class Meta:
         model = Store
-        fields = ['name', 'owner_name', 'phone_number', 'contact_email', 'address', 'city', 'category', 'description', 'quantity_total']
+        fields = ['name', 'owner_name', 'phone_number', 'contact_email', 'address', 'city', 'category', 'description']
         
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'e.g. FlashBite Bakery'}),

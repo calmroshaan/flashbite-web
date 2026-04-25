@@ -78,7 +78,7 @@ def add_bag(request):
         if form.is_valid():
             bag = form.save(commit=False)
             bag.store = store # Link the bag to this specific vendor's store
-            bag.quantity_available = bag.quantity_total
+            bag.quantity_left = bag.quantity_total
             bag.save()
             messages.success(request, "Your Surprise Bag is now live!")
             return redirect('stores:owner_dashboard')
