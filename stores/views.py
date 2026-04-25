@@ -45,12 +45,16 @@ def store_list(request):
 
 @login_required
 def owner_dashboard(request):
-    # Find the store owned by the logged-in user
+    # FIXED: Changed 'user' to 'owner'
     store = Store.objects.filter(owner=request.user).first()
-    
+
+    # --- ADDED WAITING ROOM INTERCEPT LOGIC START ---
     if not store:
-        # If they don't own a store, send them to the homepage
-        return redirect('core:home')
+        return redirect('core:partner')
+
+    if not store.is_approved:
+        return render(request, 'stores/waiting_room.html')
+    # --- ADDED WAITING ROOM INTERCEPT LOGIC END ---
         
     # Get all reservations for this store, newest first
     reservations = Reservation.objects.filter(store=store).order_by('-id')
