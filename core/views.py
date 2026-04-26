@@ -4,10 +4,20 @@ from django.contrib.auth.decorators import login_required
 from reservations.models import Reservation
 from stores.forms import StoreApplicationForm
 from bags.models import SurpriseBag
+# --- ADDED: Import Django's timezone tool to check the clock ---
+from django.utils import timezone
 
 # --- MARKETPLACE UPGRADE: Fetch available bags instead of just stores ---
 def home(request):
-    available_bags = SurpriseBag.objects.filter(quantity_left__gt=0).order_by('-id')
+    # 1. Get the exact current time right now
+    current_time = timezone.localtime().time()
+    
+    # 2. Filter: Quantity > 0 AND pickup_end hasn't happened yet today
+    available_bags = SurpriseBag.objects.filter(
+        quantity_left__gt=0,
+        pickup_end__gt=current_time
+    ).order_by('-id')
+    
     return render(request, 'core/home.html', {'bags': available_bags})
 
 @login_required

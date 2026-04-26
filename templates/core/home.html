@@ -83,7 +83,7 @@
                                 <span class="text-decoration-line-through text-muted small d-block">Rs. {{ bag.original_price }}</span>
                                 <span class="fw-bold text-success fs-3 m-0">Rs. {{ bag.discounted_price }}</span>
                             </div>
-                            <a href="#" class="btn btn-success fw-bold rounded-pill px-4">Reserve</a>
+                            <a href="{% url 'stores:store_detail' bag.store.slug %}" class="btn btn-success fw-bold rounded-pill px-4">Reserve</a>
                         </div>
                     </div>
                 </div>
