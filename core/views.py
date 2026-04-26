@@ -3,11 +3,12 @@ from stores.models import Store
 from django.contrib.auth.decorators import login_required
 from reservations.models import Reservation
 from stores.forms import StoreApplicationForm
+from bags.models import SurpriseBag
 
+# --- MARKETPLACE UPGRADE: Fetch available bags instead of just stores ---
 def home(request):
-    # Only show approved and active stores on the homepage
-    stores = Store.objects.filter(is_approved=True, is_active=True)[:6]
-    return render(request, 'core/home.html', {'stores': stores})
+    available_bags = SurpriseBag.objects.filter(quantity_left__gt=0).order_by('-id')
+    return render(request, 'core/home.html', {'bags': available_bags})
 
 @login_required
 def dashboard(request):
