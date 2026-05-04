@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        {% if query %}
+            <h3 class="fw-bold m-0">🛍️ Bags available in "{{ query|title|cut:'_' }}"</h3>
+            <a href="{% url 'bags:bag_list' %}" class="btn btn-outline-secondary btn-sm">Clear Search</a>
+        {% else %}
+            <h3 class="fw-bold m-0">All Available Surprise Bags</h3>
+        {% endif %}
+    </div>
+
+    {% if bags %}
+    <div class="row g-4">
+        {% for bag in bags %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card border-success shadow-sm h-100">
+                <div class="card-header bg-success text-white fw-bold">
+                    ⏰ Pickup: {{ bag.pickup_start|time:"g:i A" }} – {{ bag.pickup_end|time:"g:i A" }}
+                </div>
+                {% if bag.image %}
+                <img src="{{ bag.image.url }}" class="w-100" style="height:160px; object-fit:cover;">
+                {% endif %}
+                <div class="card-body text-center py-3">
+                    <p class="text-muted small mb-1">📍 {{ bag.store.name }} · {{ bag.store.city }}</p>
+                    <h5 class="fw-bold">{{ bag.title }}</h5>
+                    <p class="text-muted small">{{ bag.description }}</p>
+                    <div class="my-2">
+                        <span class="text-muted text-decoration-line-through">Rs. {{ bag.original_price }}</span>
+                        <span class="fs-4 fw-bold text-success ms-2">Rs. {{ bag.discounted_price }}</span>
+                    </div>
+                    <p class="text-danger fw-bold small">🔥 Only {{ bag.quantity_left }} left!</p>
+                    <a href="{% url 'reservations:reserve' bag.id %}" class="btn btn-flashbite w-100 fw-bold">Reserve Now</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% else %}
+    <div class="text-center py-5 bg-white rounded-3 shadow-sm border">
+        <div class="display-4 mb-3">😔</div>
+        <h4 class="fw-bold text-dark">No surprise bags available in this area right now.</h4>
+        <p class="text-muted mb-3">We're growing fast! FlashBite is currently launching in <strong>Johar Town, Lahore</strong>.<br>Try a different area or check back soon as new stores join daily.</p>
+        <a href="{% url 'bags:bag_list' %}" class="btn btn-flashbite fw-bold px-4">Browse All Bags</a>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

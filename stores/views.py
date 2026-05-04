@@ -25,15 +25,13 @@ def store_detail(request, slug):
 from django.db.models import Q
 
 def store_list(request):
-    # Grab what they typed in the search bar
-    query = request.GET.get('city', '')
+    # Grab what they selected from the dropdown
+    query = request.GET.get('area', '')
     
     if query:
-        # Search city OR address OR store name at the same time
+        # Filter strictly by the clean area dropdown
         stores = Store.objects.filter(
-            Q(city__icontains=query) | 
-            Q(address__icontains=query) | 
-            Q(name__icontains=query),
+            area=query,
             is_approved=True, 
             is_active=True
         ).distinct()

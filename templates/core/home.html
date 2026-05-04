@@ -7,8 +7,19 @@
         <p class="lead mb-4 opacity-75">Rescue delicious, untouched surplus food from your favorite local shops in Pakistan.</p>
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <form action="{% url 'stores:store_list' %}" method="GET" class="input-group input-group-lg shadow-sm">
-                    <input type="text" name="city" class="form-control border-0" placeholder="Search by city (e.g. Lahore, Karachi)">
+                <form action="{% url 'bags:bag_list' %}" method="GET" class="input-group input-group-lg shadow-sm">
+                    <select name="area" class="form-select border-0 form-select-lg">
+                        <option value="">📍 Select your area in Lahore...</option>
+                        <option value="johar_town"  {% if query == 'johar_town'  %}selected{% endif %}>Johar Town</option>
+                        <option value="wafaqi_colony" {% if query == 'wafaqi_colony' %}selected{% endif %}>Wafaqi Colony</option>
+                        <option value="muslim_town"  {% if query == 'muslim_town'  %}selected{% endif %}>Muslim Town</option>
+                        <option value="gulberg"      {% if query == 'gulberg'      %}selected{% endif %}>Gulberg</option>
+                        <option value="model_town"   {% if query == 'model_town'   %}selected{% endif %}>Model Town</option>
+                        <option value="garden_town"  {% if query == 'garden_town'  %}selected{% endif %}>Garden Town</option>
+                        <option value="faisal_town"  {% if query == 'faisal_town'  %}selected{% endif %}>Faisal Town</option>
+                        <option value="township"     {% if query == 'township'     %}selected{% endif %}>Township</option>
+                        <option value="iqbal_town"   {% if query == 'iqbal_town'   %}selected{% endif %}>Iqbal Town</option>
+                    </select>
                     <button class="btn btn-warning fw-bold text-dark px-4" type="submit">Find Food</button>
                 </form>
             </div>

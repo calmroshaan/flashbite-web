@@ -15,8 +15,22 @@ class Store(models.Model):
     contact_email = models.EmailField(blank=True, null=True)
     slug = models.SlugField(max_length=255, unique=True, blank=True)
     description = models.TextField()
+    AREA_CHOICES = [
+        ('johar_town', 'Johar Town'),
+        ('wafaqi_colony', 'Wafaqi Colony'),
+        ('muslim_town', 'Muslim Town'),
+        ('gulberg', 'Gulberg'),
+        ('model_town', 'Model Town'),
+        ('garden_town', 'Garden Town'),
+        ('faisal_town', 'Faisal Town'),
+        ('township', 'Township'),
+        ('iqbal_town', 'Iqbal Town'),
+        ('other', 'Other'),
+    ]
+
     category = models.CharField(max_length=100, blank=True, null=True)
     city = models.CharField(max_length=100, blank=True, null=True)
+    area = models.CharField(max_length=100, choices=AREA_CHOICES, default='johar_town')
     address = models.TextField()
     cover_image = models.ImageField(upload_to='store_covers/', null=True, blank=True)
     is_approved = models.BooleanField(default=False)

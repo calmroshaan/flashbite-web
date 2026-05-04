@@ -11,6 +11,7 @@ urlpatterns = [
     
     # Add this line right here!
     path('reservations/', include('reservations.urls')),
+    path('bags/', include('bags.urls')),
 ]
 
 if settings.DEBUG:
