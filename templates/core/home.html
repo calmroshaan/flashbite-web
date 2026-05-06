@@ -1,29 +1,41 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<section class="bg-flashbite text-white py-5 text-center shadow-sm">
-    <div class="container py-5">
-        <h1 class="display-4 fw-bold mb-3">Save food, save money.</h1>
-        <p class="lead mb-4 opacity-75">Rescue delicious, untouched surplus food from your favorite local shops in Pakistan.</p>
-        <div class="row justify-content-center">
+<section class="text-white py-5 text-center shadow-sm position-relative" style="background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.65)), url('{{ hero_bg }}') center/cover no-repeat;">
+    <div class="container py-5 position-relative" style="z-index:2;">
+
+        {# Trust badge #}
+        <div class="mb-3">
+            <span class="badge bg-warning text-dark fw-semibold px-3 py-2 rounded-pill" style="font-size:0.85rem;">
+                � Launching May 15th in Johar Town, Lahore
+            </span>
+        </div>
+
+        <h1 class="display-4 fw-bold mb-3">Rescue Premium Bakery Food<br>at up to 70% Off.</h1>
+        <p class="lead mb-2 opacity-90">Top-tier bakeries in Lahore throw away fresh, untouched food at closing time.</p>
+        <p class="lead mb-4 opacity-75">FlashBite lets you buy it before it goes to waste.</p>
+
+        <div class="row justify-content-center mb-4">
             <div class="col-md-6">
-                <form action="{% url 'bags:bag_list' %}" method="GET" class="input-group input-group-lg shadow-sm">
-                    <select name="area" class="form-select border-0 form-select-lg">
-                        <option value="">📍 Select your area in Lahore...</option>
-                        <option value="johar_town"  {% if query == 'johar_town'  %}selected{% endif %}>Johar Town</option>
-                        <option value="wafaqi_colony" {% if query == 'wafaqi_colony' %}selected{% endif %}>Wafaqi Colony</option>
-                        <option value="muslim_town"  {% if query == 'muslim_town'  %}selected{% endif %}>Muslim Town</option>
-                        <option value="gulberg"      {% if query == 'gulberg'      %}selected{% endif %}>Gulberg</option>
-                        <option value="model_town"   {% if query == 'model_town'   %}selected{% endif %}>Model Town</option>
-                        <option value="garden_town"  {% if query == 'garden_town'  %}selected{% endif %}>Garden Town</option>
-                        <option value="faisal_town"  {% if query == 'faisal_town'  %}selected{% endif %}>Faisal Town</option>
-                        <option value="township"     {% if query == 'township'     %}selected{% endif %}>Township</option>
-                        <option value="iqbal_town"   {% if query == 'iqbal_town'   %}selected{% endif %}>Iqbal Town</option>
-                    </select>
-                    <button class="btn btn-warning fw-bold text-dark px-4" type="submit">Find Food</button>
-                </form>
+                <a href="{% url 'bags:bag_list' %}?area=johar_town" class="btn btn-warning btn-lg fw-bold rounded-pill px-5 py-3 shadow">
+                    🛍️ See Today's Surprise Bags in Johar Town
+                </a>
             </div>
         </div>
+
+        {# Social proof strip #}
+        <div class="row justify-content-center g-3 mt-2">
+            <div class="col-auto">
+                <span class="badge bg-white text-dark fw-semibold px-3 py-2 rounded-pill opacity-90">✅ 100% Fresh Food</span>
+            </div>
+            <div class="col-auto">
+                <span class="badge bg-white text-dark fw-semibold px-3 py-2 rounded-pill opacity-90">💰 Up to 70% Discount</span>
+            </div>
+            <div class="col-auto">
+                <span class="badge bg-white text-dark fw-semibold px-3 py-2 rounded-pill opacity-90">📍 Johar Town Only (for now)</span>
+            </div>
+        </div>
+
     </div>
 </section>
 
@@ -59,7 +71,7 @@
         <div class="p-5 bg-white rounded-4 shadow-sm border border-success border-2 mx-auto" style="max-width: 600px;">
             <div class="display-1 mb-3">🤫</div>
             <h2 class="fw-bold text-dark mb-3">Johar Town, get ready.</h2>
-            <p class="text-muted fs-5 mb-4">We are officially launching on <strong>Friday, May 8th at 5:00 PM</strong> with 50% off Surprise Bags from the best bakeries in Johar Town.</p>
+            <p class="text-muted fs-5 mb-4">We are officially launching on <strong>Thursday, May 15th</strong> with upto 70% off Surprise Bags from the best bakeries in Johar Town.</p>
             
             <a href="https://chat.whatsapp.com/EANODk8jBsUCPHlQIvtapu" class="btn btn-success btn-lg fw-bold rounded-pill px-5 py-3 shadow w-100 mb-2">
                 <i class="bi bi-whatsapp me-2"></i> Join the VIP WhatsApp Group

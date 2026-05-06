@@ -9,11 +9,59 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
-        /* Custom tweaks for a premium feel */
-        .bg-flashbite { background-color: #05795B; }
-        .text-flashbite { color: #05795B; }
-        .btn-flashbite { background-color: #05795B; color: white; transition: 0.3s; }
-        .btn-flashbite:hover { background-color: #034B38; color: white; }
+        /* FlashBite Premium Brand Colors */
+        :root {
+            --fb-green: #057a5b;
+            --fb-green-dark: #035c44;
+            --fb-green-deeper: #023d2d;
+            --fb-gold: #f5a623;
+            --fb-gold-dark: #d4891a;
+        }
+
+        .bg-flashbite {
+            background: linear-gradient(135deg, var(--fb-green) 0%, var(--fb-green-deeper) 100%);
+        }
+        .text-flashbite { color: var(--fb-green); }
+
+        .btn-flashbite {
+            background: linear-gradient(135deg, var(--fb-green) 0%, var(--fb-green-dark) 100%);
+            color: white;
+            border: none;
+            transition: all 0.25s ease;
+            box-shadow: 0 2px 8px rgba(5,122,91,0.35);
+        }
+        .btn-flashbite:hover {
+            background: linear-gradient(135deg, var(--fb-green-dark) 0%, var(--fb-green-deeper) 100%);
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(5,122,91,0.45);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, var(--fb-gold) 0%, var(--fb-gold-dark) 100%) !important;
+            border: none !important;
+            box-shadow: 0 2px 8px rgba(245,166,35,0.4);
+            transition: all 0.25s ease;
+        }
+        .btn-warning:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(245,166,35,0.5) !important;
+        }
+
+        /* Navbar premium feel */
+        .navbar {
+            background: linear-gradient(135deg, var(--fb-green) 0%, var(--fb-green-deeper) 100%) !important;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15) !important;
+        }
+
+        /* Card hover lift */
+        .card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12) !important;
+        }
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100 bg-light">
@@ -38,9 +86,21 @@
             
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto me-lg-3">
-                    <li class="nav-item"><a class="nav-link text-white fw-bold" href="{% url 'stores:store_list' %}">Browse Stores</a></li>
-                    <li class="nav-item"><a class="nav-link text-warning fw-bold" href="{% url 'core:partner' %}">Partner with Us</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="{% url 'stores:owner_dashboard' %}">Vendor Dashboard</a></li> 
+                    {# Consumer actions #}
+                    <li class="nav-item"><a class="nav-link text-white fw-bold" href="{% url 'bags:bag_list' %}">Find Food</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="{% url 'stores:store_list' %}">Browse Stores</a></li>
+
+                    {# Divider - only visible on desktop #}
+                    <li class="nav-item d-none d-lg-block">
+                        <span class="nav-link text-white-50 px-1">|</span>
+                    </li>
+
+                    {# Business actions - only show when relevant #}
+                    {% if user.is_authenticated and user.role == 'store_owner' %}
+                        <li class="nav-item"><a class="nav-link text-warning fw-bold" href="{% url 'stores:owner_dashboard' %}">Vendor Dashboard</a></li>
+                    {% elif not user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link text-warning fw-bold" href="{% url 'core:partner' %}">List Your Store</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
@@ -62,8 +122,8 @@
                     <ul class="list-unstyled small">
                         <li class="mb-2"><a href="/#how-it-works" class="text-white-50 text-decoration-none hover-white">How it Works</a></li>
                         
-                        <li class="mb-2"><a href="mailto:roshaanch007@gmail.com?subject=Partnership Inquiry" class="text-white-50 text-decoration-none hover-white">Partner with Us</a></li>
-                        <li class="mb-2"><a href="mailto:roshaanch007@gmail.com?subject=Careers at FlashBite" class="text-white-50 text-decoration-none hover-white">Careers</a></li>
+                        <li class="mb-2"><a href="mailto:flashbite.store@gmail.com?subject=Partnership Inquiry" class="text-white-50 text-decoration-none hover-white">Partner with Us</a></li>
+                        <li class="mb-2"><a href="mailto:flashbite.store@gmail.com?subject=Careers at FlashBite" class="text-white-50 text-decoration-none hover-white">Careers</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-3">
@@ -75,11 +135,11 @@
                         </li>
                         <li class="mb-2">
                             <i class="bi bi-envelope-fill text-warning me-2"></i> 
-                            <a href="mailto:roshaanch007@gmail.com" class="text-white-50 text-decoration-none hover-white">roshaanch007@gmail.com</a>
+                            <a href="mailto:flashbite.store@gmail.com" class="text-white-50 text-decoration-none hover-white">flashbite.store@gmail.com</a>
                         </li>
                         <li class="mb-2">
                             <i class="bi bi-facebook text-primary me-2"></i> 
-                            <a href="https://www.facebook.com/roshaanch275" target="_blank" class="text-white-50 text-decoration-none hover-white">Connect on Facebook</a>
+                            <a href="https://www.facebook.com/profile.php?id=61589123877118" target="_blank" class="text-white-50 text-decoration-none hover-white">Connect on Facebook</a>
                         </li>
                     </ul>
                 </div>

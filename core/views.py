@@ -17,8 +17,10 @@ def home(request):
         quantity_left__gt=0,
         pickup_end__gt=current_time
     ).order_by('-id')
+
+    hero_bg = '/static/background-image.jpeg'
     
-    return render(request, 'core/home.html', {'bags': available_bags})
+    return render(request, 'core/home.html', {'bags': available_bags, 'hero_bg': hero_bg})
 
 @login_required
 def dashboard(request):
