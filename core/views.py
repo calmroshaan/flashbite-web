@@ -43,6 +43,9 @@ def partner(request):
             store.owner = request.user
             store.is_approved = False
             store.save()
+            # FIX: Promote user to store_owner so Vendor Dashboard appears in navbar
+            request.user.role = 'store_owner'
+            request.user.save()
             return redirect('stores:owner_dashboard')
     else:
         form = StoreApplicationForm()

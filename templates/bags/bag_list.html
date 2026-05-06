@@ -40,11 +40,15 @@
     </div>
 
     {% else %}
-    <div class="text-center py-5 bg-white rounded-3 shadow-sm border">
-        <div class="display-4 mb-3">😔</div>
-        <h4 class="fw-bold text-dark">No surprise bags available in this area right now.</h4>
-        <p class="text-muted mb-3">We're growing fast! FlashBite is currently launching in <strong>Johar Town, Lahore</strong>.<br>Try a different area or check back soon as new stores join daily.</p>
-        <a href="{% url 'bags:bag_list' %}" class="btn btn-flashbite fw-bold px-4">Browse All Bags</a>
+    <div class="text-center py-5 bg-white rounded-3 shadow-sm border px-4">
+        <div class="display-4 mb-3">�</div>
+        <h4 class="fw-bold text-dark">Bags go live on May 15th!</h4>
+        <p class="text-muted mb-1">We're still onboarding our launch partners in <strong>Johar Town, Lahore</strong>.</p>
+        <p class="text-muted mb-4">Join our WhatsApp group — you'll get the exact link the moment bags go live, before they sell out.</p>
+        <a href="https://chat.whatsapp.com/EANODk8jBsUCPHlQIvtapu" target="_blank" class="btn btn-success btn-lg fw-bold rounded-pill px-5 py-3 shadow mb-3">
+            <i class="bi bi-whatsapp me-2"></i> Join the VIP WhatsApp Group
+        </a>
+        <p class="small text-muted mt-2">Already a partner? <a href="{% url 'core:partner' %}" class="text-flashbite fw-bold text-decoration-none">List your store here →</a></p>
     </div>
     {% endif %}
 
