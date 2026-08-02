@@ -5,3 +5,10 @@ db.sqlite3
 .env
 media/
 .vercel
+venv/
+env/
+.venv/
+__pycache__/
+*.pyc
+.env
+db.sqlite3
